@@ -1,7 +1,7 @@
-export type point = number[]
-export type matrix = number[][]
+import { Point } from "./geometry"
+export * from "./geometry"
 export type bond = {nodes: Set<number>}
-export type node = {pos: point}
+export type node = {pos: Point}
 export type state = {nodes: Map<number,node>,
 			  bonds: Map<number,bond>}
 export type template = {nodes: Map<number,node>,
@@ -51,9 +51,4 @@ export function connectingBonds(f:Fragment, n:number) : Set<number> {
 			res.add(bn);
 	}
 	return res
-}
-
-// Returns point p transformed by matrix m.
-export function transformPoint(p:point, m:matrix) : point {
-	return [ p[0]*m[0][0]+p[1]*m[0][1], p[0]*m[1][0]+p[1]*m[1][1] ]
 }

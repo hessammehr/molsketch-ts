@@ -7,7 +7,8 @@
 </head>
 <body>
 	<script type="text/javascript">
-		SystemJS.config({ baseURL:'/dist' });
+		SystemJS.config({ baseURL:'/dist',
+						  packages: { './dist': {defaultExtension:"js"} }});
 		SystemJS.import('tests.js');
 	</script>
 </body>
