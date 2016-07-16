@@ -21,7 +21,8 @@
     "url": "https://github.com/hessammehr/molsketch-ts/issues"
   },
   "homepage": "https://github.com/hessammehr/molsketch-ts",
-  "devDependencies": {
-    "jasmine-core": "^2.4.1"
+  "devDependencies": {},
+  "dependencies": {
+    "systemjs": "^0.19.31"
   }
 }
