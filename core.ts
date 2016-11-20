@@ -1,34 +1,47 @@
-type bond = {nodes: Set<number>}
-type node = {pos: Point}
-type state = {nodes: Map<number,node>,
-			  bonds: Map<number,bond>}
-type template = {nodes: Map<number,node>,
-				 bonds: Map<number,bond>,
-				 // The root is the node or bond used
-				 // to connect the template to the rest
-				 // of the molecule.
-				 root: {node: number, bond: number}}
+type point = [number, number];
+type bond = { nodes: Set<number> };
+type node = { pos: point, label: string };
+
+type state = {
+	nodes: Map<number, node>,
+	bonds: Map<number, bond>,
+	molecules: Map<number, Fragment>
+}
 
 interface Fragment {
-	nodes: Map<number,node>,
-	bonds: Map<number,bond>
+	nodes: Map<number, node>;
+	bonds: Map<number, bond>;
 }
 
-// Removes node number n from fragment-like f. Returns f.
-function deleteNode<F extends Fragment>(f:F, n:number) : F {
-	delete f.nodes[n];
-	return f
+interface Template extends Fragment {
+	root: { node: number, bond: number };
 }
 
-// Removes bond number b from fragment-like f. Returns f.
-function deleteBond<F extends Fragment>(f:F, b:number) : F {
-	delete f.bonds[b];
-	return f
+class Direction {
+	readonly x: number;
+	readonly y: number;
+	constructor(x: number, y: number) {
+		let l = len(x, y);
+		this.x = x/l;
+		this.y = y/l;
+	}
+
+}
+
+// Returns a set containing the numbers of bonds connecting
+// node number n to other nodes.
+function connectingBonds(f: Template, n: number): Set<number> {
+	let res = new Set<number>();
+	for (let [bn, b] of f.bonds.entries()) {
+		if (b.nodes.has(n))
+			res.add(bn);
+	}
+	return res
 }
 
 // Returns a set containing the numbers of nodes connected to
 // node number n in fragment-like f.
-function connectedNodes(f:Fragment, n:number) : Set<number> {
+function connectedNodes(f: Fragment, n: number): Set<number> {
 	let res = new Set<number>();
 	for (let b of f.bonds.values()) {
 		if (b.nodes.has(n)) {
@@ -40,13 +53,16 @@ function connectedNodes(f:Fragment, n:number) : Set<number> {
 	return res
 }
 
-// Returns a set containing the numbers of bonds connecting
-// node number n to other nodes.
-function connectingBonds(f:Fragment, n:number) : Set<number> {
-	let res = new Set<number>();
-	for (let [bn, b] of f.bonds.entries()) {
-		if (b.nodes.has(n))
-			res.add(bn);
-	}
-	return res
+// Removes node number n from fragment-like f. Returns f.
+function deleteNode<F extends Fragment>(f: F, n: number): F {
+	delete f.nodes[n];
+	return f
 }
+
+// Removes bond number b from fragment-like f. Returns f.
+function deleteBond<F extends Fragment>(f: F, b: number): F {
+	delete f.bonds[b];
+	return f
+}
+
+
