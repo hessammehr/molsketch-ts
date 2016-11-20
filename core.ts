@@ -7,10 +7,7 @@ type point = [number, number];
 type bond = { nodes: Set<number> };
 type node = { pos: point, label: string };
 
-type state = {
-	nodes: Map<number, node>,
-	bonds: Map<number, bond>,
-	molecules: Map<number, Fragment>
+interface State extends Fragment {
 }
 
 interface Fragment {
