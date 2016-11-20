@@ -30,6 +30,11 @@ class Direction {
 
 }
 
+function add_node<F extends Fragment>(f: F, n: node): F {
+	f.nodes[max_node(f) + 1] = n;
+	return f;
+}
+
 // Returns a set containing the numbers of bonds connecting
 // node number n to other nodes.
 function connectingBonds(f: Template, n: number): Set<number> {
@@ -67,4 +72,6 @@ function deleteBond<F extends Fragment>(f: F, b: number): F {
 	return f
 }
 
-
+function max_node(f: Fragment): number {
+	return Math.max(...f.nodes.keys());
+}
