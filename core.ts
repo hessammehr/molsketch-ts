@@ -4,7 +4,7 @@ const constants = {
 };
 
 type point = [number, number];
-type bond = { nodes: Set<number> };
+type bond = { nodes: Set<number>, order: number };
 type node = { pos: point, label: string };
 
 interface State extends Fragment {
