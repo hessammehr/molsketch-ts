@@ -1,3 +1,8 @@
+const constants = {
+	"bond_length": 20,
+	"node_radius": 0.5
+};
+
 type point = [number, number];
 type bond = { nodes: Set<number> };
 type node = { pos: point, label: string };
@@ -22,8 +27,8 @@ class Direction {
 	readonly y: number;
 	constructor(x: number, y: number) {
 		let l = len(x, y);
-		this.x = x/l;
-		this.y = y/l;
+		this.x = x / l;
+		this.y = y / l;
 	}
 
 }
