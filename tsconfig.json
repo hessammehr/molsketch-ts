@@ -4,7 +4,8 @@
         "noImplicitAny": false,
         "sourceMap": true,
         "outFile": "molsketch.js",
-        "removeComments": true
+        "removeComments": true,
+        "strictNullChecks": true
     },
     "include": [
         "*.ts"
