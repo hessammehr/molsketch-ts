@@ -30,14 +30,17 @@ class Direction {
 
 }
 
+// Adds node n to Fragment f, assigning a new node number to it.
 function add_node<F extends Fragment>(f: F, n: node): F {
-	f.nodes[max_node(f) + 1] = n;
+	let m = max_node(f);
+	f.nodes[m == undefined ? 0 : m + 1] = n;
 	return f;
 }
 
 // Adds bond b to Fragment f, assigning a new bond number to it.
 function add_bond<F extends Fragment>(f: F, b: bond): F {
-	f.bonds[max_bond(f) + 1] = b;
+	let m = max_bond(f);
+	f.bonds[m == undefined ? 0 : m + 1] = b;
 	return f;
 }
 
@@ -78,11 +81,13 @@ function deleteBond<F extends Fragment>(f: F, b: number): F {
 	return f
 }
 
-// Returns the largest bond number in Fragment f. 
-function max_bond(f: Fragment): number {
-	return Math.max(...f.bonds.keys());
+// Returns the largest bond number in Fragment f, returns undefined
+// f.bonds is empty.
+function max_bond(f: Fragment): (number | undefined) {
+	return f.bonds.size > 0 ? Math.max(...f.bonds.keys()) : undefined;
 }
 
-function max_node(f: Fragment): number {
-	return Math.max(...f.nodes.keys());
+// Returns the largest node number in Fragment f. 
+function max_node(f: Fragment): (number | undefined) {
+	return f.nodes.size > 0 ? Math.max(...f.nodes.keys()) : undefined;
 }
