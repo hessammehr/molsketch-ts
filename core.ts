@@ -35,6 +35,12 @@ function add_node<F extends Fragment>(f: F, n: node): F {
 	return f;
 }
 
+// Adds bond b to Fragment f, assigning a new bond number to it.
+function add_bond<F extends Fragment>(f: F, b: bond): F {
+	f.bonds[max_bond(f) + 1] = b;
+	return f;
+}
+
 // Returns a set containing the numbers of bonds connecting
 // node number n to other nodes.
 function connectingBonds(f: Template, n: number): Set<number> {
@@ -70,6 +76,11 @@ function deleteNode<F extends Fragment>(f: F, n: number): F {
 function deleteBond<F extends Fragment>(f: F, b: number): F {
 	delete f.bonds[b];
 	return f
+}
+
+// Returns the largest bond number in Fragment f. 
+function max_bond(f: Fragment): number {
+	return Math.max(...f.bonds.keys());
 }
 
 function max_node(f: Fragment): number {
